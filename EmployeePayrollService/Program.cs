@@ -2,7 +2,7 @@
 
 namespace EmployeePayrollService
 {
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
@@ -38,6 +38,7 @@ namespace EmployeePayrollService
             {
                 Console.WriteLine("Employee isn't Added");
             }
+
         }
     }
 }

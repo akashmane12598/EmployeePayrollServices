@@ -119,5 +119,37 @@ namespace EmployeePayrollService
                 connection.Close();
             }
         }
+
+        public bool UpdateEmployee(Decimal basicPay)
+        {
+            try
+            {
+                using (connection)
+                {
+                    connection = new SqlConnection(connectionstring);
+                    SqlCommand command = new SqlCommand("Sp_UpdateEmployee", connection);
+                    connection.Open();
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@BasicPay", basicPay);
+                    var result = command.ExecuteNonQuery();
+                    if (result != 0)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+                
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                connection.Close();
+                return false;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
     }
 }
