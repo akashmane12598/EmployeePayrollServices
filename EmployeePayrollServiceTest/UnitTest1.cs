@@ -9,14 +9,17 @@ namespace EmployeePayrollServiceTest
         [TestMethod]
         public void UC3_CompareUpdatedSalary()
         {
-            EmployeeModel model = new EmployeeModel();
-            model.BasicPay = 3000000;
-            EmployeeRepo repo = new EmployeeRepo();
-            bool res = repo.UpdateEmployee(model.BasicPay);
-            if (res)
+            SalaryDetailModel model = new SalaryDetailModel()
             {
-
-            }
+                EmployeeId = 1,
+                SalaryId = 1021,
+                Salary = 3000000,
+                Month = "Jan",
+            };
+            EmployeeRepo repo = new EmployeeRepo();
+            int actual = repo.UpdateEmployee(model);
+            Assert.AreEqual(model.Salary, actual);
+            
         }
     }
 }

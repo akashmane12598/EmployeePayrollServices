@@ -106,6 +106,7 @@ namespace EmployeePayrollService
                         return true;
                     }
                     return false;
+                    
                 }
             }
             catch(Exception e)
@@ -120,23 +121,48 @@ namespace EmployeePayrollService
             }
         }
 
-        public bool UpdateEmployee(Decimal basicPay)
+        public int UpdateEmployee(SalaryDetailModel model)
         {
+            int salary = 0;
             try
             {
                 using (connection)
                 {
                     connection = new SqlConnection(connectionstring);
-                    SqlCommand command = new SqlCommand("Sp_UpdateEmployee", connection);
-                    connection.Open();
+                    SalaryDetailModel displayModel = new SalaryDetailModel();
+
+                    SqlCommand command = new SqlCommand("Sp_UpdateEmployee_Payroll", connection);
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@BasicPay", basicPay);
-                    var result = command.ExecuteNonQuery();
-                    if (result != 0)
+
+                    command.Parameters.AddWithValue("@S_id", model. SalaryId);
+                    //command.Parameters.AddWithValue("@EmployeeName", model.EmployeeName);
+                    //command.Parameters.AddWithValue("@Designation", model.Designation);
+                    command.Parameters.AddWithValue("@salary", model.Salary);
+                    command.Parameters.AddWithValue("@month", model.Month);
+                    command.Parameters.AddWithValue("@E_id", model.EmployeeId);
+
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    if (reader.HasRows)
                     {
-                        return true;
+                        while (reader.Read())
+                        {
+                            displayModel.EmployeeId = reader.GetInt32(0);
+                            displayModel.EmployeeName = reader.GetString(1);
+                            displayModel.Designation = reader.GetString(2);
+                            displayModel.Month = reader.GetString(3);
+                            displayModel.SalaryId = reader.GetInt32(4);
+                            displayModel.Salary = reader.GetInt32(5);
+
+                            salary = displayModel.Salary;
+                        }
                     }
-                    return false;
+                    else
+                    {
+                        Console.WriteLine("No Data found");
+                    }
+                    reader.Close();
+                    return salary;
                 }
                 
             }
@@ -144,7 +170,7 @@ namespace EmployeePayrollService
             {
                 Console.WriteLine(e.Message);
                 connection.Close();
-                return false;
+                return 0;
             }
             finally
             {
