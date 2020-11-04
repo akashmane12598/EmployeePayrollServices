@@ -28,7 +28,7 @@ namespace EmployeePayrollService
             Console.WriteLine("Displaying All Data");
             repo.GetAllEmployee();
 
-            /*bool res = repo.AddEmployee(model);
+            bool res = repo.AddEmployee(model);
             if (res)
             {
                 Console.WriteLine("Employee Added Successfully");
@@ -37,7 +37,7 @@ namespace EmployeePayrollService
             else
             {
                 Console.WriteLine("Employee isn't Added");
-            }*/
+            }
 
 
             Console.WriteLine("Retrieving Employee from StartDate");

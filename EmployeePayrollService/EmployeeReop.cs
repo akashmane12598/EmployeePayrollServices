@@ -12,6 +12,9 @@ namespace EmployeePayrollService
 
         SqlConnection connection;
 
+        /// <summary>
+        /// UC1 Fetching Employee Details
+        /// </summary>
         public void GetAllEmployee()
         {
             try
@@ -122,6 +125,11 @@ namespace EmployeePayrollService
             }
         }
 
+        /// <summary>
+        /// UC3 UpdateEmployeeSalary
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public int UpdateEmployee(SalaryDetailModel model)
         {
             int salary = 0;
@@ -227,6 +235,10 @@ namespace EmployeePayrollService
             Console.WriteLine();
         }
 
+        /// <summary>
+        /// UC6 FindSumAvgMinMaxSalaryOfEmployee
+        /// </summary>
+        /// <param name="model"></param>
         public void FindSumAvgMinMaxSalaryOfEmployee(EmployeeModel model)
         {
             try
