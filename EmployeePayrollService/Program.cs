@@ -28,7 +28,7 @@ namespace EmployeePayrollService
             Console.WriteLine("Displaying All Data");
             repo.GetAllEmployee();
 
-            bool res = repo.AddEmployee(model);
+            /*bool res = repo.AddEmployee(model);
             if (res)
             {
                 Console.WriteLine("Employee Added Successfully");
@@ -37,7 +37,7 @@ namespace EmployeePayrollService
             else
             {
                 Console.WriteLine("Employee isn't Added");
-            }
+            }*/
 
 
             Console.WriteLine("Retrieving Employee from StartDate");
@@ -46,6 +46,14 @@ namespace EmployeePayrollService
                 StartDate = DateTime.Parse("2018-06-26")
             };
             repo.RetrieveEmployeeBasedOnStartDate(model1);
+
+            Console.WriteLine("Retrieving Sum Avg Min Max from Employee");
+            EmployeeModel model2 = new EmployeeModel()
+            {
+                Gender = 'M'
+            };
+            repo.FindSumAvgMinMaxSalaryOfEmployee(model2);
+
 
         }
     }
